@@ -1,14 +1,9 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import rateLimit from 'express-rate-limit';
-import { AppModule } from './app.module';
-
-const configSwagger = new DocumentBuilder()
-  .setTitle('Ecommerce Shop Gateway API')
-  .setDescription('The admin API description')
-  .setVersion('1.0')
-  .build();
+import * as swaggerDocument from './constants/swagger.json';
+import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -31,8 +26,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
-  const document = SwaggerModule.createDocument(app, configSwagger);
-  SwaggerModule.setup('swagger', app, document);
+  SwaggerModule.setup('swagger', app, swaggerDocument as OpenAPIObject);
 
   app.use((req, _, next) => {
     // console.log(`Got invoked: '${req.originalUrl}'`);
