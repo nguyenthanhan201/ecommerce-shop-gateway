@@ -1,6 +1,7 @@
 import { NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+require('dotenv').config();
 
 // http://localhpst:3001/api/v1/auth-service
 // http://localhpst:3001/api/v1/restaurant-service
@@ -8,7 +9,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 
 export class ReverseProxyServiceMiddleware implements NestMiddleware {
   private proxy = createProxyMiddleware({
-    target: 'http://localhost:8080/api/v1/',
+    target: process.env.PROXY_SERVICE_URL,
     pathRewrite: {
       '/api/v1/service': '/',
     },

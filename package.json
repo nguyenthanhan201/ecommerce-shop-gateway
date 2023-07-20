@@ -30,6 +30,7 @@
     "amqp-connection-manager": "^4.1.13",
     "amqplib": "^0.10.3",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "express-rate-limit": "^6.7.1",
     "fs": "^0.0.1-security",
     "http-proxy-middleware": "^2.0.6",
